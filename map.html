@@ -1,283 +1,131 @@
-<html>
+<!DOCTYPE html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
- </head>
- <div id="regions_div" style="width: 900px; height: 500px;"></div>
-  <script>
-                google.charts.load('current', {
-        'packages':['geochart'],
-      });
-			var v = {'Germany': [['Country', 'Color'], ['Germany', 0], ['Angola', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belgium', 10], ['Bulgaria', 10], ['Egypt', 10], ['Ethiopia', 10], ['Gabon', 10], ['Indonesia', 10], ['Italy', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Mongolia', 10], ['Morocco', 10], ['Netherlands', 10], ['Nigeria', 10], ['Oman', 10], ['Pakistan', 10], ['Paraguay', 10], ['Romania', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Singapore', 10], ['Slovenia', 10], ['South Africa', 10], ['Switzerland', 10], ['Turkey', 10], ['Turkmenistan', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['Venezuela', 10], ['Vietnam', 10]], 'Israel': [['Country', 'Color'], ['Israel', 0], ['Argentina', 10], ['Armenia', 10], ['Azerbaijan', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belarus', 10], ['Belgium', 10], ['Botswana', 10], ['Brazil', 10], ['China', 10], ['Colombia', 10], ["Côte d'Ivoire", 10], ['Djibouti', 10], ['Egypt', 10], ['El Salvador', 10], ['Estonia', 10], ['Ethiopia', 10], ['Germany', 10], ['Ghana', 10], ['Greece', 10], ['Honduras', 10], ['Hong Kong', 10], ['Hungary', 10], ['India', 10], ['Indonesia', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Madagascar', 10], ['Mexico', 10], ['Morocco', 10], ['Myanmar', 10], ['Netherlands', 10], ['Nigeria', 10], ['Oman', 10], ['Panama', 10], ['Philippines', 10], ['Poland', 10], ['Russia', 10], ['Rwanda', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Singapore', 10], ['Spain', 10], ['Sudan', 10], ['Thailand', 10], ['Togo', 10], ['Turkey', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['United States', 10], ['Uzbekistan', 10], ['Venezuela', 10], ['Vietnam', 10], ['Zambia', 10]], 'Hungary': [['Country', 'Color'], ['Hungary', 0], ['Armenia', 10], ['Colombia', 10], ["Côte d'Ivoire", 10], ['Egypt', 10], ['Greece', 10], ['Indonesia', 10], ['Madagascar', 10], ['Oman', 10], ['Philippines', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Spain', 10], ['Sudan', 10], ['Vietnam', 10]], 'Italy': [['Country', 'Color'], ['Italy', 0], ['Azerbaijan', 10], ['Brazil', 10], ['Chile', 10], ['Colombia', 10], ['Cyprus', 10], ['Ecuador', 10], ['Egypt', 10], ['Ethiopia', 10], ['Honduras', 10], ['Hungary', 10], ['Kazakhstan', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Morocco', 10], ['Myanmar', 10], ['Nigeria', 10], ['Oman', 10], ['Panama', 10], ['Poland', 10], ['Russia', 10], ['Saudi Arabia', 10], ['Singapore', 10], ['Spain', 10], ['Sudan', 10], ['Thailand', 10], ['United Arab Emirates', 10], ['United States', 10], ['Uzbekistan', 10]], 'Russia': [['Country', 'Color'], ['Russia', 0], ['Belarus', 10], ['Kazakhstan', 10], ['Myanmar', 10], ['United States', 10], ['Uzbekistan', 10]], 'United States': [['Country', 'Color'], ['United States', 0], ['Belarus', 10], ['Botswana', 10], ['Colombia', 10], ['Myanmar', 10], ['Nigeria', 10]], 'Undisclosed': [['Country', 'Color'], ['Undisclosed', 0], ['Canada', 10]], 'China': [['Country', 'Color'], ['China', 0], ['China', 10], ['Egypt', 10], ['Myanmar', 10], ['Philippines', 10]], 'Spain': [['Country', 'Color'], ['Spain', 0], ['Colombia', 10]], 'Sweden': [['Country', 'Color'], ['Sweden', 0], ['Hong Kong', 10], ['Morocco', 10], ['Myanmar', 10], ['United States', 10]], 'Lebanon': [['Country', 'Color'], ['Lebanon', 0], ['Lebanon', 10]], 'Canada': [['Country', 'Color'], ['Canada', 0], ['Myanmar', 10], ['United States', 10]], 'Hong Kong': [['Country', 'Color'], ['Hong Kong', 0], ['Myanmar', 10]]};
+    <style>
+    svg>g>g>rect {display:none}
+    svg>g>g>path {display:none}
+    svg>g>g>g>text {display:none}
+    g.google-visualization-tooltip>g:last-child {display:none}
+    .box {
+      float: left;
+      height: 20px;
+      width: 20px;
+      margin-bottom: 15px;
+      clear: both;
+    }
 
-var country_codes = {
-  "AF": "Afghanistan",
-  "AX": "Aland Islands",
-  "AL": "Albania",
-  "DZ": "Algeria",
-  "AS": "American Samoa",
-  "AD": "Andorra",
-  "AO": "Angola",
-  "AI": "Anguilla",
-  "AQ": "Antarctica",
-  "AG": "Antigua And Barbuda",
-  "AR": "Argentina",
-  "AM": "Armenia",
-  "AW": "Aruba",
-  "AU": "Australia",
-  "AT": "Austria",
-  "AZ": "Azerbaijan",
-  "BS": "Bahamas",
-  "BH": "Bahrain",
-  "BD": "Bangladesh",
-  "BB": "Barbados",
-  "BY": "Belarus",
-  "BE": "Belgium",
-  "BZ": "Belize",
-  "BJ": "Benin",
-  "BM": "Bermuda",
-  "BT": "Bhutan",
-  "BO": "Bolivia",
-  "BA": "Bosnia And Herzegovina",
-  "BW": "Botswana",
-  "BV": "Bouvet Island",
-  "BR": "Brazil",
-  "IO": "British Indian Ocean Territory",
-  "BN": "Brunei Darussalam",
-  "BG": "Bulgaria",
-  "BF": "Burkina Faso",
-  "BI": "Burundi",
-  "KH": "Cambodia",
-  "CM": "Cameroon",
-  "CA": "Canada",
-  "CV": "Cape Verde",
-  "KY": "Cayman Islands",
-  "CF": "Central African Republic",
-  "TD": "Chad",
-  "CL": "Chile",
-  "CN": "China",
-  "CX": "Christmas Island",
-  "CC": "Cocos (Keeling) Islands",
-  "CO": "Colombia",
-  "KM": "Comoros",
-  "CG": "Congo",
-  "CD": "Congo, Democratic Republic",
-  "CK": "Cook Islands",
-  "CR": "Costa Rica",
-  "CI": "Cote D\"Ivoire",
-  "HR": "Croatia",
-  "CU": "Cuba",
-  "CY": "Cyprus",
-  "CZ": "Czech Republic",
-  "DK": "Denmark",
-  "DJ": "Djibouti",
-  "DM": "Dominica",
-  "DO": "Dominican Republic",
-  "EC": "Ecuador",
-  "EG": "Egypt",
-  "SV": "El Salvador",
-  "GQ": "Equatorial Guinea",
-  "ER": "Eritrea",
-  "EE": "Estonia",
-  "ET": "Ethiopia",
-  "FK": "Falkland Islands (Malvinas)",
-  "FO": "Faroe Islands",
-  "FJ": "Fiji",
-  "FI": "Finland",
-  "FR": "France",
-  "GF": "French Guiana",
-  "PF": "French Polynesia",
-  "TF": "French Southern Territories",
-  "GA": "Gabon",
-  "GM": "Gambia",
-  "GE": "Georgia",
-  "DE": "Germany",
-  "GH": "Ghana",
-  "GI": "Gibraltar",
-  "GR": "Greece",
-  "GL": "Greenland",
-  "GD": "Grenada",
-  "GP": "Guadeloupe",
-  "GU": "Guam",
-  "GT": "Guatemala",
-  "GG": "Guernsey",
-  "GN": "Guinea",
-  "GW": "Guinea-Bissau",
-  "GY": "Guyana",
-  "HT": "Haiti",
-  "HM": "Heard Island & Mcdonald Islands",
-  "VA": "Holy See (Vatican City State)",
-  "HN": "Honduras",
-  "HK": "Hong Kong",
-  "HU": "Hungary",
-  "IS": "Iceland",
-  "IN": "India",
-  "ID": "Indonesia",
-  "IR": "Iran, Islamic Republic Of",
-  "IQ": "Iraq",
-  "IE": "Ireland",
-  "IM": "Isle Of Man",
-  "IL": "Israel",
-  "IT": "Italy",
-  "JM": "Jamaica",
-  "JP": "Japan",
-  "JE": "Jersey",
-  "JO": "Jordan",
-  "KZ": "Kazakhstan",
-  "KE": "Kenya",
-  "KI": "Kiribati",
-  "KR": "Korea",
-  "KP": "North Korea",
-  "KW": "Kuwait",
-  "KG": "Kyrgyzstan",
-  "LA": "Lao People\"s Democratic Republic",
-  "LV": "Latvia",
-  "LB": "Lebanon",
-  "LS": "Lesotho",
-  "LR": "Liberia",
-  "LY": "Libyan Arab Jamahiriya",
-  "LI": "Liechtenstein",
-  "LT": "Lithuania",
-  "LU": "Luxembourg",
-  "MO": "Macao",
-  "MK": "Macedonia",
-  "MG": "Madagascar",
-  "MW": "Malawi",
-  "MY": "Malaysia",
-  "MV": "Maldives",
-  "ML": "Mali",
-  "MT": "Malta",
-  "MH": "Marshall Islands",
-  "MQ": "Martinique",
-  "MR": "Mauritania",
-  "MU": "Mauritius",
-  "YT": "Mayotte",
-  "MX": "Mexico",
-  "FM": "Micronesia, Federated States Of",
-  "MD": "Moldova",
-  "MC": "Monaco",
-  "MN": "Mongolia",
-  "ME": "Montenegro",
-  "MS": "Montserrat",
-  "MA": "Morocco",
-  "MZ": "Mozambique",
-  "MM": "Myanmar",
-  "NA": "Namibia",
-  "NR": "Nauru",
-  "NP": "Nepal",
-  "NL": "Netherlands",
-  "AN": "Netherlands Antilles",
-  "NC": "New Caledonia",
-  "NZ": "New Zealand",
-  "NI": "Nicaragua",
-  "NE": "Niger",
-  "NG": "Nigeria",
-  "NU": "Niue",
-  "NF": "Norfolk Island",
-  "MP": "Northern Mariana Islands",
-  "NO": "Norway",
-  "OM": "Oman",
-  "PK": "Pakistan",
-  "PW": "Palau",
-  "PS": "Palestinian Territory, Occupied",
-  "PA": "Panama",
-  "PG": "Papua New Guinea",
-  "PY": "Paraguay",
-  "PE": "Peru",
-  "PH": "Philippines",
-  "PN": "Pitcairn",
-  "PL": "Poland",
-  "PT": "Portugal",
-  "PR": "Puerto Rico",
-  "QA": "Qatar",
-  "RE": "Reunion",
-  "RO": "Romania",
-  "RU": "Russian Federation",
-  "RW": "Rwanda",
-  "BL": "Saint Barthelemy",
-  "SH": "Saint Helena",
-  "KN": "Saint Kitts And Nevis",
-  "LC": "Saint Lucia",
-  "MF": "Saint Martin",
-  "PM": "Saint Pierre And Miquelon",
-  "VC": "Saint Vincent And Grenadines",
-  "WS": "Samoa",
-  "SM": "San Marino",
-  "ST": "Sao Tome And Principe",
-  "SA": "Saudi Arabia",
-  "SN": "Senegal",
-  "RS": "Serbia",
-  "SC": "Seychelles",
-  "SL": "Sierra Leone",
-  "SG": "Singapore",
-  "SK": "Slovakia",
-  "SI": "Slovenia",
-  "SB": "Solomon Islands",
-  "SO": "Somalia",
-  "ZA": "South Africa",
-  "GS": "South Georgia And Sandwich Isl.",
-  "ES": "Spain",
-  "LK": "Sri Lanka",
-  "SD": "Sudan",
-  "SR": "Suriname",
-  "SJ": "Svalbard And Jan Mayen",
-  "SZ": "Swaziland",
-  "SE": "Sweden",
-  "CH": "Switzerland",
-  "SY": "Syrian Arab Republic",
-  "TW": "Taiwan",
-  "TJ": "Tajikistan",
-  "TZ": "Tanzania",
-  "TH": "Thailand",
-  "TL": "Timor-Leste",
-  "TG": "Togo",
-  "TK": "Tokelau",
-  "TO": "Tonga",
-  "TT": "Trinidad And Tobago",
-  "TN": "Tunisia",
-  "TR": "Turkey",
-  "TM": "Turkmenistan",
-  "TC": "Turks And Caicos Islands",
-  "TV": "Tuvalu",
-  "UG": "Uganda",
-  "UA": "Ukraine",
-  "AE": "United Arab Emirates",
-  "GB": "United Kingdom",
-  "US": "United States",
-  "UM": "United States Outlying Islands",
-  "UY": "Uruguay",
-  "UZ": "Uzbekistan",
-  "VU": "Vanuatu",
-  "VE": "Venezuela",
-  "VN": "Vietnam",
-  "VG": "Virgin Islands, British",
-  "VI": "Virgin Islands, U.S.",
-  "WF": "Wallis And Futuna",
-  "EH": "Western Sahara",
-  "YE": "Yemen",
-  "ZM": "Zambia",
-  "ZW": "Zimbabwe"
-};
-      google.charts.setOnLoadCallback(drawRegionsMap);
-			var selection = v['Germany'];
-      function selectHandler(e){
-      	country_name = country_codes[e.region];
-      	selection = v[country_name];
+    .red {
+      background-color: #e31b23;
+    }
+
+    .black {
+      background-color: black;
+    }
+    </style>
+ </head>
+<body>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a class="nav-link px-2 text-white" href="https://carnegieendowment.org/programs/democracy/commercialspyware">Publishing Website</a></li>
+                <li><a class="nav-link px-2 text-white" href="https://ceipfiles.s3.amazonaws.com/pdf/Global+inventory+spyware+and+digital+forensics+11Jan23.xlsx">Original Dataset</a></li>
+                <li><a class="nav-link px-2 text-white" href="https://github.com/wup0/wup0.github.io/blob/main/map.html">Page Source</a></li>
+                <li><a class="nav-link px-2 text-white" href="https://github.com/wup0/wup0.github.io/blob/main/spyware_mapping_extraction.py">Extraction Source</a></li>
+            </ul>
+        </div>
+    </nav>
+<main id="content" class="bd-content order-1 py-5">
+
+    <div class="row">
+        <div class="col-2">
+            <div id="product_origin_table" class="list-group w-auto">
+                <div class="list-group-item list-group-item-action d-flex gap-3 py-3"><b>Product</b></div>
+            </div>
+        </div>
+        <div class="col-8">
+        <div class="container-xxl">
+            <h1>"Global Inventory of Commercial Spyware & Digital Forensics" Visualization</h1>
+            <p>The following visualizations are based on an <a href="https://carnegieendowment.org/programs/democracy/commercialspyware">ongoing meta study</a> by Steven Feldstein and Brian Kot regarding the global governmental misuse of spyware.</p>
+            <i>"The dataset provides a global inventory of commercial spyware & digital forensics technology procured by governments. It focuses on three overarching questions: Which governments show evidence of procuring and using commercial spyware? Which private sector companies are involved and what are their countries of origin? What activities have governments used the technology for?"</i>
+        </div>
+            </br>
+        <div class="container-xxl">
+            <p>The following map shows countries where commercial spyware originates from in black and the countries where the spyware has been used in red.</p>
+                <h3 id="selection_title">Germany</h3>
+                <div id="regions_origin_map"></div>
+                </br>
+                <div class="row">
+                    <div class="col-6"><div class='box black'></div> Country of origin</div>
+                    <div class="col-6"><div class='box red'></div> Country of use</div>
+                </div>
+            <p>Disclaimer: The visualization is based on the data given in the source linked above and was not validated independently. This site is simply a visual representation of the research results. Additionally there might be bugs in the extraction/transformation/visualization code. All of the code is open source and linked in the page header. Issues can be fixed via pull requests to the repository.</p>
+        </div>
+        </div>
+        <div class="col-2">
+            <div id="regions_origin_table" class="list-group w-auto">
+                <div class="list-group-item list-group-item-action d-flex gap-3 py-3"><b>Country of origin</b></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+  <script>
+    google.charts.load('current', {
+        'packages':['geochart'],
+    });
+    var spyware_region_mapping = {'Germany': [['Country', 'Color'], ['Germany', 0], ['Angola', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belgium', 10], ['Bulgaria', 10], ['Egypt', 10], ['Ethiopia', 10], ['Gabon', 10], ['Indonesia', 10], ['Italy', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Mongolia', 10], ['Morocco', 10], ['Netherlands', 10], ['Nigeria', 10], ['Oman', 10], ['Pakistan', 10], ['Paraguay', 10], ['Romania', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Singapore', 10], ['Slovenia', 10], ['South Africa', 10], ['Switzerland', 10], ['Turkey', 10], ['Turkmenistan', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['Venezuela', 10], ['Vietnam', 10]], 'Israel': [['Country', 'Color'], ['Israel', 0], ['Argentina', 10], ['Armenia', 10], ['Azerbaijan', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belarus', 10], ['Belgium', 10], ['Botswana', 10], ['Brazil', 10], ['China', 10], ['Colombia', 10], ["Côte d'Ivoire", 10], ['Djibouti', 10], ['Egypt', 10], ['El Salvador', 10], ['Estonia', 10], ['Ethiopia', 10], ['Germany', 10], ['Ghana', 10], ['Greece', 10], ['Honduras', 10], ['Hong Kong', 10], ['Hungary', 10], ['India', 10], ['Indonesia', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Madagascar', 10], ['Mexico', 10], ['Morocco', 10], ['Myanmar', 10], ['Netherlands', 10], ['Nigeria', 10], ['Oman', 10], ['Panama', 10], ['Philippines', 10], ['Poland', 10], ['Russia', 10], ['Rwanda', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Singapore', 10], ['Spain', 10], ['Sudan', 10], ['Thailand', 10], ['Togo', 10], ['Turkey', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['United States', 10], ['Uzbekistan', 10], ['Venezuela', 10], ['Vietnam', 10], ['Zambia', 10]], 'Hungary': [['Country', 'Color'], ['Hungary', 0], ['Armenia', 10], ['Colombia', 10], ["Côte d'Ivoire", 10], ['Egypt', 10], ['Greece', 10], ['Indonesia', 10], ['Madagascar', 10], ['Oman', 10], ['Philippines', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Spain', 10], ['Sudan', 10], ['Vietnam', 10]], 'Italy': [['Country', 'Color'], ['Italy', 0], ['Azerbaijan', 10], ['Brazil', 10], ['Chile', 10], ['Colombia', 10], ['Cyprus', 10], ['Ecuador', 10], ['Egypt', 10], ['Ethiopia', 10], ['Honduras', 10], ['Hungary', 10], ['Kazakhstan', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Morocco', 10], ['Myanmar', 10], ['Nigeria', 10], ['Oman', 10], ['Panama', 10], ['Poland', 10], ['Russia', 10], ['Saudi Arabia', 10], ['Singapore', 10], ['Spain', 10], ['Sudan', 10], ['Thailand', 10], ['United Arab Emirates', 10], ['United States', 10], ['Uzbekistan', 10]], 'Russia': [['Country', 'Color'], ['Russia', 0], ['Belarus', 10], ['Kazakhstan', 10], ['Myanmar', 10], ['United States', 10], ['Uzbekistan', 10]], 'United States': [['Country', 'Color'], ['United States', 0], ['Belarus', 10], ['Botswana', 10], ['Colombia', 10], ['Myanmar', 10], ['Nigeria', 10]], 'Undisclosed': [['Country', 'Color'], ['Undisclosed', 0], ['Canada', 10]], 'China': [['Country', 'Color'], ['China', 0], ['China', 10], ['Egypt', 10], ['Myanmar', 10], ['Philippines', 10]], 'Spain': [['Country', 'Color'], ['Spain', 0], ['Colombia', 10]], 'Sweden': [['Country', 'Color'], ['Sweden', 0], ['Hong Kong', 10], ['Morocco', 10], ['Myanmar', 10], ['United States', 10]], 'Lebanon': [['Country', 'Color'], ['Lebanon', 0], ['Lebanon', 10]], 'Canada': [['Country', 'Color'], ['Canada', 0], ['Myanmar', 10], ['United States', 10]], 'Hong Kong': [['Country', 'Color'], ['Hong Kong', 0], ['Myanmar', 10]]};
+    var spyware_product_mapping = {'FinFisher': [['Country', 'Color'], ['Germany', 0], ['Angola', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belgium', 10], ['Bulgaria', 10], ['Egypt', 10], ['Ethiopia', 10], ['Gabon', 10], ['Indonesia', 10], ['Italy', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Mongolia', 10], ['Morocco', 10], ['Nigeria', 10], ['Oman', 10], ['Pakistan', 10], ['Paraguay', 10], ['Romania', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Singapore', 10], ['Slovenia', 10], ['South Africa', 10], ['Turkey', 10], ['Turkmenistan', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['Venezuela', 10], ['Vietnam', 10]], 'Cellebrite': [['Country', 'Color'], ['Israel', 0], ['Argentina', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belarus', 10], ['Botswana', 10], ['Brazil', 10], ['China', 10], ['Germany', 10], ['Ghana', 10], ['Honduras', 10], ['Hong Kong', 10], ['India', 10], ['Indonesia', 10], ['Morocco', 10], ['Myanmar', 10], ['Nigeria', 10], ['Russia', 10], ['Saudi Arabia', 10], ['Turkey', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['United States', 10], ['Venezuela', 10]], 'Cytrox': [['Country', 'Color'], ['Israel', 0], ['Hungary', 0], ['Armenia', 10], ['Colombia', 10], ["Côte d'Ivoire", 10], ['Egypt', 10], ['Greece', 10], ['Indonesia', 10], ['Madagascar', 10], ['Oman', 10], ['Philippines', 10], ['Saudi Arabia', 10], ['Serbia', 10], ['Spain', 10], ['Sudan', 10], ['Vietnam', 10]], 'NSO Group': [['Country', 'Color'], ['Israel', 0], ['Azerbaijan', 10], ['Bahrain', 10], ['Bangladesh', 10], ['Belgium', 10], ['Djibouti', 10], ['Egypt', 10], ['El Salvador', 10], ['Estonia', 10], ['Germany', 10], ['Ghana', 10], ['Hungary', 10], ['India', 10], ['Indonesia', 10], ['Jordan', 10], ['Kazakhstan', 10], ['Kenya', 10], ['Mexico', 10], ['Morocco', 10], ['Netherlands', 10], ['Panama', 10], ['Poland', 10], ['Rwanda', 10], ['Saudi Arabia', 10], ['Spain', 10], ['Thailand', 10], ['Togo', 10], ['Uganda', 10], ['United Arab Emirates', 10], ['Uzbekistan', 10], ['Zambia', 10]], 'Hacking Team': [['Country', 'Color'], ['Italy', 0], ['Azerbaijan', 10], ['Brazil', 10], ['Chile', 10], ['Colombia', 10], ['Cyprus', 10], ['Ecuador', 10], ['Egypt', 10], ['Ethiopia', 10], ['Honduras', 10], ['Hungary', 10], ['Kazakhstan', 10], ['Lebanon', 10], ['Malaysia', 10], ['Mexico', 10], ['Morocco', 10], ['Nigeria', 10], ['Oman', 10], ['Panama', 10], ['Poland', 10], ['Russia', 10], ['Saudi Arabia', 10], ['Singapore', 10], ['Spain', 10], ['Sudan', 10], ['Thailand', 10], ['Turkey', 10], ['United Arab Emirates', 10], ['United States', 10], ['Uzbekistan', 10]], 'Oxygen Software': [['Country', 'Color'], ['Russia', 0], ['Belarus', 10], ['Kazakhstan', 10], ['Myanmar', 10], ['United States', 10], ['Uzbekistan', 10]], 'Grayshift': [['Country', 'Color'], ['United States', 0], ['Belarus', 10]], 'AccessData': [['Country', 'Color'], ['United States', 0], ['Botswana', 10], ['Colombia', 10], ['Nigeria', 10]], 'Undisclosed': [['Country', 'Color'], ['Undisclosed', 0], ['Canada', 10]], 'Meiya Pico': [['Country', 'Color'], ['China', 0], ['Egypt', 10], ['Philippines', 10]], 'Resonant': [['Country', 'Color'], ['China', 0]], 'Zhongke Ronghui Security Technology': [['Country', 'Color'], ['China', 0]], 'Fiberhome': [['Country', 'Color'], ['China', 0]], 'Mollitiam': [['Country', 'Color'], ['Spain', 0], ['Colombia', 10]], 'Cyberbit': [['Country', 'Color'], ['Israel', 0], ['Ethiopia', 10]], 'DigiTask': [['Country', 'Color'], ['Germany', 0], ['Netherlands', 10], ['Switzerland', 10]], 'MSAB': [['Country', 'Color'], ['Sweden', 0], ['Hong Kong', 10], ['Morocco', 10], ['Myanmar', 10], ['United States', 10]], 'Black Cube': [['Country', 'Color'], ['Israel', 0], ['Hungary', 10]], 'Candiru': [['Country', 'Color'], ['Israel', 0], ['Hungary', 10], ['Indonesia', 10], ['Saudi Arabia', 10], ['Spain', 10], ['United Arab Emirates', 10], ['Uzbekistan', 10]], 'Toka': [['Country', 'Color'], ['Israel', 0]], 'eSurv': [['Country', 'Color'], ['Italy', 0]], 'RCS Labs': [['Country', 'Color'], ['Italy', 0], ['Kazakhstan', 10]], 'Dark Caracal': [['Country', 'Color'], ['Lebanon', 0]], 'Quadream': [['Country', 'Color'], ['Israel', 0], ['Mexico', 10], ['Saudi Arabia', 10], ['Singapore', 10]], 'Magnet Forensics': [['Country', 'Color'], ['Canada', 0], ['Myanmar', 10], ['United States', 10]], 'OpenText': [['Country', 'Color'], ['Canada', 0], ['Myanmar', 10]], 'EaseUS': [['Country', 'Color'], ['China', 0], ['Myanmar', 10]], 'SalvationData': [['Country', 'Color'], ['China', 0], ['Myanmar', 10]], 'iMyFone': [['Country', 'Color'], ['Hong Kong', 0], ['Myanmar', 10]], 'SecurCube': [['Country', 'Color'], ['Italy', 0], ['Myanmar', 10]], 'Elcomsoft': [['Country', 'Color'], ['Russia', 0], ['Myanmar', 10], ['United States', 10]], 'Passware': [['Country', 'Color'], ['United States', 0], ['Myanmar', 10]], 'Sillicon Forensics': [['Country', 'Color'], ['United States', 0], ['Myanmar', 10]], 'Sirchie': [['Country', 'Color'], ['United States', 0], ['Myanmar', 10]], 'SysTools': [['Country', 'Color'], ['United States', 0], ['Myanmar', 10]], 'Paragon': [['Country', 'Color'], ['Israel', 0], ['United States', 10]], 'Susteen': [['Country', 'Color'], ['United States', 0]], 'Paraben ': [['Country', 'Color'], ['United States', 0]], 'BlackBag': [['Country', 'Color'], ['United States', 0], ['Israel', 0]]};
+
+    var country_codes = {
+      "AF": "Afghanistan", "AX": "Aland Islands", "AL": "Albania", "DZ": "Algeria", "AS": "American Samoa", "AD": "Andorra", "AO": "Angola", "AI": "Anguilla", "AQ": "Antarctica", "AG": "Antigua And Barbuda", "AR": "Argentina", "AM": "Armenia", "AW": "Aruba", "AU": "Australia", "AT": "Austria", "AZ": "Azerbaijan", "BS": "Bahamas", "BH": "Bahrain", "BD": "Bangladesh", "BB": "Barbados", "BY": "Belarus", "BE": "Belgium", "BZ": "Belize", "BJ": "Benin", "BM": "Bermuda", "BT": "Bhutan", "BO": "Bolivia", "BA": "Bosnia And Herzegovina", "BW": "Botswana", "BV": "Bouvet Island", "BR": "Brazil", "IO": "British Indian Ocean Territory", "BN": "Brunei Darussalam", "BG": "Bulgaria", "BF": "Burkina Faso", "BI": "Burundi", "KH": "Cambodia", "CM": "Cameroon", "CA": "Canada", "CV": "Cape Verde", "KY": "Cayman Islands", "CF": "Central African Republic", "TD": "Chad", "CL": "Chile", "CN": "China", "CX": "Christmas Island", "CC": "Cocos (Keeling) Islands", "CO": "Colombia", "KM": "Comoros", "CG": "Congo", "CD": "Congo, Democratic Republic", "CK": "Cook Islands", "CR": "Costa Rica", "CI": "Cote D\"Ivoire", "HR": "Croatia", "CU": "Cuba", "CY": "Cyprus", "CZ": "Czech Republic", "DK": "Denmark", "DJ": "Djibouti", "DM": "Dominica", "DO": "Dominican Republic", "EC": "Ecuador", "EG": "Egypt", "SV": "El Salvador", "GQ": "Equatorial Guinea", "ER": "Eritrea", "EE": "Estonia", "ET": "Ethiopia", "FK": "Falkland Islands (Malvinas)", "FO": "Faroe Islands", "FJ": "Fiji", "FI": "Finland", "FR": "France", "GF": "French Guiana", "PF": "French Polynesia", "TF": "French Southern Territories", "GA": "Gabon", "GM": "Gambia", "GE": "Georgia", "DE": "Germany", "GH": "Ghana", "GI": "Gibraltar", "GR": "Greece", "GL": "Greenland", "GD": "Grenada", "GP": "Guadeloupe", "GU": "Guam", "GT": "Guatemala", "GG": "Guernsey", "GN": "Guinea", "GW": "Guinea-Bissau", "GY": "Guyana", "HT": "Haiti", "HM": "Heard Island & Mcdonald Islands", "VA": "Holy See (Vatican City State)", "HN": "Honduras", "HK": "Hong Kong", "HU": "Hungary", "IS": "Iceland", "IN": "India", "ID": "Indonesia", "IR": "Iran, Islamic Republic Of", "IQ": "Iraq", "IE": "Ireland", "IM": "Isle Of Man", "IL": "Israel", "IT": "Italy", "JM": "Jamaica", "JP": "Japan", "JE": "Jersey", "JO": "Jordan", "KZ": "Kazakhstan", "KE": "Kenya", "KI": "Kiribati", "KR": "Korea", "KP": "North Korea", "KW": "Kuwait", "KG": "Kyrgyzstan", "LA": "Lao People\"s Democratic Republic", "LV": "Latvia", "LB": "Lebanon", "LS": "Lesotho", "LR": "Liberia", "LY": "Libyan Arab Jamahiriya", "LI": "Liechtenstein", "LT": "Lithuania", "LU": "Luxembourg", "MO": "Macao", "MK": "Macedonia", "MG": "Madagascar", "MW": "Malawi", "MY": "Malaysia", "MV": "Maldives", "ML": "Mali", "MT": "Malta", "MH": "Marshall Islands", "MQ": "Martinique", "MR": "Mauritania", "MU": "Mauritius", "YT": "Mayotte", "MX": "Mexico", "FM": "Micronesia, Federated States Of", "MD": "Moldova", "MC": "Monaco", "MN": "Mongolia", "ME": "Montenegro", "MS": "Montserrat", "MA": "Morocco", "MZ": "Mozambique", "MM": "Myanmar", "NA": "Namibia", "NR": "Nauru", "NP": "Nepal", "NL": "Netherlands", "AN": "Netherlands Antilles", "NC": "New Caledonia", "NZ": "New Zealand", "NI": "Nicaragua", "NE": "Niger", "NG": "Nigeria", "NU": "Niue", "NF": "Norfolk Island", "MP": "Northern Mariana Islands", "NO": "Norway", "OM": "Oman", "PK": "Pakistan", "PW": "Palau", "PS": "Palestinian Territory, Occupied", "PA": "Panama", "PG": "Papua New Guinea", "PY": "Paraguay", "PE": "Peru", "PH": "Philippines", "PN": "Pitcairn", "PL": "Poland", "PT": "Portugal", "PR": "Puerto Rico", "QA": "Qatar", "RE": "Reunion", "RO": "Romania", "RU": "Russia", "RW": "Rwanda", "BL": "Saint Barthelemy", "SH": "Saint Helena", "KN": "Saint Kitts And Nevis", "LC": "Saint Lucia", "MF": "Saint Martin", "PM": "Saint Pierre And Miquelon", "VC": "Saint Vincent And Grenadines", "WS": "Samoa", "SM": "San Marino", "ST": "Sao Tome And Principe", "SA": "Saudi Arabia", "SN": "Senegal", "RS": "Serbia", "SC": "Seychelles", "SL": "Sierra Leone", "SG": "Singapore", "SK": "Slovakia", "SI": "Slovenia", "SB": "Solomon Islands", "SO": "Somalia", "ZA": "South Africa", "GS": "South Georgia And Sandwich Isl.", "ES": "Spain", "LK": "Sri Lanka", "SD": "Sudan", "SR": "Suriname", "SJ": "Svalbard And Jan Mayen", "SZ": "Swaziland", "SE": "Sweden", "CH": "Switzerland", "SY": "Syrian Arab Republic", "TW": "Taiwan", "TJ": "Tajikistan", "TZ": "Tanzania", "TH": "Thailand", "TL": "Timor-Leste", "TG": "Togo", "TK": "Tokelau", "TO": "Tonga", "TT": "Trinidad And Tobago", "TN": "Tunisia", "TR": "Turkey", "TM": "Turkmenistan", "TC": "Turks And Caicos Islands", "TV": "Tuvalu", "UG": "Uganda", "UA": "Ukraine", "AE": "United Arab Emirates", "GB": "United Kingdom", "US": "United States", "UM": "United States Outlying Islands", "UY": "Uruguay", "UZ": "Uzbekistan", "VU": "Vanuatu", "VE": "Venezuela", "VN": "Vietnam", "VG": "Virgin Islands, British", "VI": "Virgin Islands, U.S.", "WF": "Wallis And Futuna", "EH": "Western Sahara", "YE": "Yemen", "ZM": "Zambia", "ZW": "Zimbabwe"
+    };
+    let initial_origin = 'Germany';
+    google.charts.setOnLoadCallback(drawRegionsMap);
+    var selection = spyware_region_mapping[initial_origin];
+    for (var origin in spyware_region_mapping) {
+            var element = document.createElement('div')
+            element.innerHTML = '<a class="list-group-item list-group-item-action d-flex gap-3 py-3" onclick="changeRegionSelection(\''+origin+'\')" aria-current="true">'+origin+'</a>';
+            document.getElementById('regions_origin_table').appendChild(element);
+    };
+    for (var product in spyware_product_mapping) {
+            var element = document.createElement('div')
+            element.innerHTML = '<a class="list-group-item list-group-item-action d-flex gap-3 py-3" onclick="changeProductSelection(\''+product+'\')" aria-current="true">'+product+'</a>';
+            document.getElementById('product_origin_table').appendChild(element);
+    };
+
+    function changeProductSelection(product_name) {
+        selection = spyware_product_mapping[product_name];
         drawRegionsMap();
-      }
-      function drawRegionsMap() {
+        document.getElementById('selection_title').innerHTML = product_name;
+        document.getElementById('selection_title').scrollIntoView();
+    }
+
+    function changeRegionSelection(full_name) {
+        selection = spyware_region_mapping[full_name];
+        drawRegionsMap();
+        document.getElementById('selection_title').innerHTML = full_name;
+        document.getElementById('selection_title').scrollIntoView();
+    }
+    function selectHandler(e){
+        country_name = country_codes[e.region];
+        changeRegionSelection(country_name);
+    }
+
+    function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable(selection);
 
         var options = {
           colorAxis: {colors: ['black', '#e31b23']},
           backgroundColor: '#81d4fa',
           datalessRegionColor: '#ffffff',
-          defaultColor: '#f5f5f5',
+          defaultColor: '#f5f5f5'
         };
-				var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_origin_map'));
         chart.draw(data, options);
         google.visualization.events.addListener(chart, 'regionClick', selectHandler);
-      }
+    }
     </script>
-  
-  
+</body>
 </html>
